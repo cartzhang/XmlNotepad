@@ -9,8 +9,8 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>XmlNotepad</RootNamespace>
-    <AssemblyName>XmlNotepad</AssemblyName>
-    <ApplicationIcon>Resources\XmlNote.ico</ApplicationIcon>
+    <AssemblyName>SLQJXmlNotepad</AssemblyName>
+    <ApplicationIcon>SLQJ.ico</ApplicationIcon>
     <StartupObject>XmlNotepad.Program</StartupObject>
     <SignAssembly>true</SignAssembly>
     <AssemblyOriginatorKeyFile>$(MyKeyFile)</AssemblyOriginatorKeyFile>
@@ -92,6 +92,9 @@
     <Compile Include="Program.cs">
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="MyForm.resx">
+      <DependentUpon>MyForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -192,6 +195,7 @@
     <Content Include="Help\Overview.htm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="ReadFileName_ClientConfig.txt" />
     <Content Include="Resources\XmlNote.ico" />
     <Content Include="Help\Schemas.htm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -208,6 +212,7 @@
     <Content Include="Help\Validation.htm">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="SLQJ.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.0">
@@ -244,6 +249,7 @@
 </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>copy "$(SolutionDir)\FontBuilder\bin\$(Configuration)\FontBuilder.dll" "$(TargetDir)FontBuilder.dll"</PreBuildEvent>
+    <PreBuildEvent>copy "$(SolutionDir)\FontBuilder\bin\$(Configuration)\FontBuilder.dll" "$(TargetDir)FontBuilder.dll"
+copy "$(SolutionDir)\Application\ReadFileName_ClientConfig.txt"</PreBuildEvent>
   </PropertyGroup>
 </Project>

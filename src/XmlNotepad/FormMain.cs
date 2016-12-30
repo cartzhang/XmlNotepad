@@ -219,8 +219,7 @@ namespace XmlNotepad {
         private ToolStripMenuItem statsToolStripMenuItem;
         private ToolStripMenuItem checkUpdatesToolStripMenuItem;
         private string redoLabel;
-
-
+        
         public FormMain() {
 
             this.settings = new Settings();
@@ -368,7 +367,55 @@ namespace XmlNotepad {
             this.ContextMenuStrip = this.contextMenu1;            
             New();
 
+            string relativePath = GetRelativePathForUnity();
+            Open(relativePath);
         }
+        //@zpj
+        private string GetRelativePathForUnity()
+        {
+            string xmlFileName = GetWillReadFileName();
+            string currentFilePath = Directory.GetCurrentDirectory();
+            string output = "";
+            string[] xmlFullPaths = GetFileFullPaths(Directory.GetParent(currentFilePath).FullName,xmlFileName);
+            if ( xmlFullPaths.Length >= 1)
+            {
+                output = xmlFullPaths[0];
+            }
+            return output;
+        }
+
+        private  string[] GetFileFullPaths(string path, string filter)
+        {
+            string[] files = Directory.GetFiles(path, filter, SearchOption.AllDirectories);
+            for (int i = 0; i < files.Length; i++)
+                files[i] = Path.GetFullPath(files[i]);
+            return files;
+        }
+
+        private string[] GetFileNames(string path, string filter)
+        {
+            string[] files = Directory.GetFiles(path, filter);
+            for (int i = 0; i < files.Length; i++)
+                files[i] = Path.GetFileName(files[i]);
+            return files;
+        }
+        // 获取XML文件名称
+        private string GetWillReadFileName()
+        {
+            string TmpfileName = "";
+            string currentFilePath = Directory.GetCurrentDirectory();
+            string[] filesName = GetFileNames(currentFilePath, "ReadFileName_*.txt");
+            if ( filesName.Length >= 1)
+            {
+                TmpfileName = filesName[0];
+                int prefixLen = "ReadFileName_".Length;
+                int TmpIndex= TmpfileName.Length - prefixLen - 4;
+                TmpfileName = TmpfileName.Substring(prefixLen, TmpIndex);
+                TmpfileName += ".xml";
+            }
+            return TmpfileName;
+        }
+        //~@zpj
 
         public FormMain(string[] args)
             : this() {
